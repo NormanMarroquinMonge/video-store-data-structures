@@ -4,12 +4,12 @@ public class Customer implements Comparable<Customer>, Identifiable {
     private static int nextID = 0;
     private final String NAME;
     private final Integer ID;
-    private final LL<Video> list;
+    private final VideoCollection<Video> rentedVideos;
 
-    public Customer(String name, LL<Video> list){
+    public Customer(String name, VideoCollection<Video> rentedVideos){
         this.NAME = name;
         this.ID = nextID++;
-        this.list = list;
+        this.rentedVideos = rentedVideos;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Customer implements Comparable<Customer>, Identifiable {
     }
     public String getName(){return NAME;}
     public Integer getID(){return ID;}
-    public LL<Video> getRentVideo(){return list;}
+    public VideoCollection<Video> getRentVideos(){return rentedVideos;}
     public String toString(){
         return "[" + getID() + "] " + getName();
     }

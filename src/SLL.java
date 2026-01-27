@@ -117,13 +117,12 @@ public class SLL<E extends Comparable<E> & Identifiable> implements LL<E> {
     }
 
     @Override
-    public boolean remove(E e) {
+    public void remove(E e) {
         if (!isEmpty()) {
             E headElement = head.getElement();
             if (headElement.equals(e)) {
                 head = head.getNext();
                 size--;
-                return true;
             } else {
                 Node<E> curr = head;
                 while (curr.getNext() != null) {
@@ -131,17 +130,16 @@ public class SLL<E extends Comparable<E> & Identifiable> implements LL<E> {
                     if (element.equals(e)) {
                         curr.setNext(curr.getNext().getNext());
                         size--;
-                        return true;
+                        return;
                     }
                     curr = curr.getNext();
                 }
             }
         }
-        return false;
     }
 
     @Override
-    public E get(String name, Integer id) {
+    public E get(String name, int id) {
         Node<E> curr = head;
         while (curr != null){
             E e = curr.getElement();
@@ -166,7 +164,7 @@ public class SLL<E extends Comparable<E> & Identifiable> implements LL<E> {
         return curr.getElement();
     }
 
-    public boolean contains(String name, Integer id) {
+    public boolean contains(String name, int id) {
         Node<E> curr = head;
         while (curr != null) {
             E e = curr.getElement();
@@ -176,6 +174,10 @@ public class SLL<E extends Comparable<E> & Identifiable> implements LL<E> {
             curr = curr.getNext();
         }
         return false;
+    }
+
+    public void add(E e){
+        addLast(e);
     }
 
     public String print() {

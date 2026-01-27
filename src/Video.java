@@ -10,6 +10,11 @@ public class Video implements Comparable<Video>, Identifiable {
         this.TITLE = title;
     }
 
+    public Video(String title, int ID){
+        this.ID = ID;
+        this.TITLE = title;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

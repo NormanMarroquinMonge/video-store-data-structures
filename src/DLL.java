@@ -1,11 +1,11 @@
 
 public class DLL<E extends Comparable<E> & Identifiable> implements LL<E>{
-    public static class DNode<E> {
+    private static class Node<E> {
         private E element;
-        private DNode<E> next;
-        private DNode<E> prev;
+        private Node<E> next;
+        private Node<E> prev;
 
-        public DNode(E element, DNode<E> next, DNode<E> prev){
+        public Node(E element, Node<E> next, Node<E> prev){
             this.element = element;
             this.next = next;
             this.prev = prev;
@@ -15,11 +15,11 @@ public class DLL<E extends Comparable<E> & Identifiable> implements LL<E>{
             return element;
         }
 
-        public DNode<E> getNext(){
+        public Node<E> getNext(){
             return next;
         }
 
-        public DNode<E> getPrev(){
+        public Node<E> getPrev(){
             return prev;
         }
 
@@ -27,40 +27,24 @@ public class DLL<E extends Comparable<E> & Identifiable> implements LL<E>{
             this.element = element;
         }
 
-        public void setNext(DNode<E> next){
+        public void setNext(Node<E> next){
             this.next = next;
         }
 
-        public void setPrev(DNode<E> prev){
+        public void setPrev(Node<E> prev){
             this.prev = prev;
         }
     }
 
-    private DNode<E> header;
-    private DNode<E> trailer;
+    private final Node<E> header;
+    private final Node<E> trailer;
     private int size = 0;
 
     public DLL() {
-        header = new DNode<>(null, null, null);
-        trailer = new DNode<>(null, null, null);
+        header = new Node<>(null, null, null);
+        trailer = new Node<>(null, null, null);
         header.setNext(trailer);
         trailer.setPrev(header);
-    }
-
-    public DNode<E> getHeader() {
-        return header;
-    }
-
-    public DNode<E> getTrailer() {
-        return trailer;
-    }
-
-    public void setHeader(DNode<E> header) {
-        this.header = header;
-    }
-
-    public void setTrailer(DNode<E> trailer) {
-        this.trailer = trailer;
     }
 
     public int size(){return size;}
@@ -76,8 +60,8 @@ public class DLL<E extends Comparable<E> & Identifiable> implements LL<E>{
         addInBetween(element, trailer.getPrev(), trailer);
     }//End of addLast method.
 
-    private void addInBetween(E e, DNode<E> predecessor, DNode<E> successor){
-        DNode<E> newest = new DNode<>(e, successor, predecessor);
+    private void addInBetween(E e, Node<E> predecessor, Node<E> successor){
+        Node<E> newest = new Node<>(e, successor, predecessor);
         predecessor.setNext(newest);
         successor.setPrev(newest);
         size++;
@@ -91,12 +75,12 @@ public class DLL<E extends Comparable<E> & Identifiable> implements LL<E>{
         removeNode(trailer.getPrev());
     }
 
-    private void removeNode(DNode<E> node){
+    private void removeNode(Node<E> node){
         if (node == header || node == trailer) {
             throw new IllegalArgumentException("List is empty");
         }
-        DNode<E> predecessor = node.getPrev();
-        DNode<E> successor = node.getNext();
+        Node<E> predecessor = node.getPrev();
+        Node<E> successor = node.getNext();
         predecessor.setNext(successor);
         successor.setPrev(predecessor);
         size--;
@@ -110,7 +94,7 @@ public class DLL<E extends Comparable<E> & Identifiable> implements LL<E>{
                 removeFirst();
                 return true;
             } else {
-              DNode<E> curr = header.getNext().getNext();
+              Node<E> curr = header.getNext().getNext();
               while(curr != trailer){
                   E element = curr.getElement();
                   if(element.getName().equals(name) && element.getID().equals(id)){
@@ -125,30 +109,28 @@ public class DLL<E extends Comparable<E> & Identifiable> implements LL<E>{
     }
 
     @Override
-    public boolean remove(E e) {
+    public void remove(E e) {
         if (!isEmpty()) {
             E headElement = header.getNext().getElement();
             if (headElement.equals(e)) {
                 removeFirst();
-                return true;
             } else {
-                DNode<E> curr = header.getNext().getNext();
+                Node<E> curr = header.getNext().getNext();
                 while(curr != trailer){
                     E element = curr.getElement();
                     if(element.equals(e)){
                         removeNode(curr);
-                        return true;
+                        return;
                     }
                     curr = curr.getNext();
                 }
             }
         }
-        return false;
     }
 
     @Override
-    public E get(String name, Integer id) {
-        DNode<E> current = header.getNext();
+    public E get(String name, int id) {
+        Node<E> current = header.getNext();
         while(current != trailer){
             E e = current.getElement();
             if(e.getName().equals(name) && e.getID().equals(id)){
@@ -166,7 +148,7 @@ public class DLL<E extends Comparable<E> & Identifiable> implements LL<E>{
             throw new IndexOutOfBoundsException("index is not within the list range");
         }
 
-        DNode<E> curr = header.getNext();
+        Node<E> curr = header.getNext();
         for(int i = 0; i < index; i++){
          curr = curr.getNext();
         }
@@ -174,8 +156,8 @@ public class DLL<E extends Comparable<E> & Identifiable> implements LL<E>{
         return curr.getElement();
     }
 
-    public boolean contains(String name, Integer id){
-        DNode<E> current = header.getNext();
+    public boolean contains(String name, int id){
+        Node<E> current = header.getNext();
         while(current != trailer){
             E e = current.getElement();
             if(e.getName().equals(name) && e.getID().equals(id)){
@@ -186,11 +168,15 @@ public class DLL<E extends Comparable<E> & Identifiable> implements LL<E>{
         return false;
     }
 
+    public void add(E e){
+        addLast(e);
+    }
+
     public String print() {
         if (header.getNext() == trailer) {
             return "EMPTY \n";
         } else {
-            DNode<E> current = header.getNext();
+            Node<E> current = header.getNext();
             StringBuilder str = new StringBuilder(current.getElement() + "\n");
             while (current.getNext() != trailer) {
                 current = current.getNext();

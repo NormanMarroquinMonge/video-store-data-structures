@@ -4,12 +4,11 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class VideoStore {
-    private LL<Video> vList = null;
-    private LL<Video> rentedList = null;
-    private LL<Customer> cList = null;
+    private VideoCollection<Video> vList = null;
+    private VideoCollection<Video> rentedList = null;
+    private VideoCollection<Customer> cList = null;
     private String listType;
-//    private int nextVideoID = 0;
-//    private int nextCustomerID = 0;
+
 
     private int videos = 0, customers = 0, requests = 0;
 
@@ -36,6 +35,8 @@ public class VideoStore {
             createSLL();
         } else if (listType.equals("DLL")) {
             createDLL();
+        } else if (listType.equals("BST")) {
+            createBST();
         }
     }
     public void mainMenu() {
@@ -57,6 +58,7 @@ public class VideoStore {
                 ===========================
                 """);
     }
+
 
     private void MenuLoop() {
         while (true) {
@@ -84,13 +86,12 @@ public class VideoStore {
         }
     }
 
-
     public void setVideoInStore() {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the videos title: ");
         String title = input.nextLine();
         Video v = new Video(title);
-        vList.addLast(v);
+        vList.add(v);
     }
 
     public void setCustomer() {
@@ -98,7 +99,7 @@ public class VideoStore {
         System.out.println("Enter the customers name: ");
         String name = input.nextLine();
         Customer c = new Customer(name, generateCustomerList());
-        cList.addLast(c);
+        cList.add(c);
     }
 
     public void deleteVideo() {
@@ -162,8 +163,8 @@ public class VideoStore {
             System.out.println("Customer not found");
         } else {
             vList.remove(v);
-            c.getRentVideo().addFirst(v);
-            rentedList.addLast(v);
+            c.getRentVideos().add(v);
+            rentedList.add(v);
         }
     }//End of Checkout method
 
@@ -183,13 +184,13 @@ public class VideoStore {
         if(c == null){
             System.out.println("Customer not found");
         } else {
-            Video v = c.getRentVideo().get(title, videoID);
+            Video v = c.getRentVideos().get(title, videoID);
             if(v == null){
                 System.out.println("Video not found");
             } else {
-                c.getRentVideo().remove(v);
+                c.getRentVideos().remove(v);
                 rentedList.remove(v);
-                vList.addFirst(v);
+                vList.add(v);
             }
         }
     }
@@ -220,7 +221,7 @@ public class VideoStore {
             System.out.println("Customer not found");
         } else {
             Customer customer = cList.get(name, customerID);
-            System.out.println(customer.getRentVideo().print());
+            System.out.println(customer.getRentVideos().print());
         }
     }
 
@@ -236,11 +237,24 @@ public class VideoStore {
         rentedList = new DLL<>();
     }
 
+    private void createBST(){
+        vList = new BSTTree<>();
+        cList = new BSTTree<>();
+        rentedList = new BSTTree<>();
+    }
+
     private LL<Video> generateCustomerList() {
         if (listType.equals("SLL")) {
             return new SLL<>();
         }
         return new DLL<>();
+    }
+
+    private BSTTree<Video> generateCustomerTree(){
+        if(listType.equals("BST")) {
+            return new BSTTree<>();
+        }
+        return null;
     }
 
     public void generateList(String listType, int videos, int customers, int requests) {
@@ -254,12 +268,12 @@ public class VideoStore {
 
         for (int i = 1; i <= videos; i++) {
             Video v = new Video(generateVideoName());
-            vList.addLast(v);
+            vList.add(v);
         }
 
         for (int i = 1; i <= customers; i++) {
             Customer c = new Customer(generateCustomerName(), generateCustomerList());
-            cList.addLast(c);
+            cList.add(c);
         }
 
         for (int i = 1; i <= requests; i++) {
@@ -276,7 +290,7 @@ public class VideoStore {
         while (!q.isEmpty()) {
             int request = q.remove();
             Video video;
-            if(request == 7 && rentedList.size() > 0){
+            if(request == 7 && !rentedList.isEmpty()){
                 video = getRandomRentedVideo();
             } else {
                 video = getRandomVideo();
