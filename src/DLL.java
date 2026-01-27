@@ -185,4 +185,10 @@ public class DLL<E extends Comparable<E> & Identifiable> implements LL<E>{
             return str.toString();
         }
     }//End of print method.
+
+    @Override
+    public void printSideWays() {
+        System.out.println("Linear list structure (DLL):");
+        System.out.println(print());
+    }
 }//End of DLL class.

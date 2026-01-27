@@ -8,4 +8,5 @@ public interface VideoCollection<E extends Identifiable>{
     void add(E v);
     boolean isEmpty();
     int size();
+    void printSideWays();
 }

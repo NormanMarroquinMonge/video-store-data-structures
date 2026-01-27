@@ -37,6 +37,8 @@ public class VideoStore {
             createDLL();
         } else if (listType.equals("BST")) {
             createBST();
+        } else if (listType.equals("AVL")) {
+            createAVL();
         }
     }
     public void mainMenu() {
@@ -54,7 +56,8 @@ public class VideoStore {
                 10: To print in store videos
                 11: To print all rent videos
                 12: To print the videos rent by a customer
-                13: To exit
+                13: To visualize data structure
+                14: To exit
                 ===========================
                 """);
     }
@@ -77,7 +80,8 @@ public class VideoStore {
                 case 10 -> printInStoreVideos();
                 case 11 -> printRentedVideos();
                 case 12 -> printCustomersVideos();
-                case 13 -> {
+                case 13 -> visualizeStructure();
+                case 14 -> {
                     System.out.println("Goodbye");
                     return;
                 }
@@ -225,6 +229,15 @@ public class VideoStore {
         }
     }
 
+    public void visualizeStructure() {
+        System.out.println("\n=== Videos In Store ===");
+        vList.printSideWays();
+        System.out.println("\n=== Rented Videos ===");
+        rentedList.printSideWays();
+        System.out.println("\n=== Customers ===");
+        cList.printSideWays();
+    }
+
     private void createSLL() {
         vList = new SLL<>();
         cList = new SLL<>();
@@ -243,6 +256,12 @@ public class VideoStore {
         rentedList = new BSTTree<>();
     }
 
+    private void createAVL(){
+        vList = new AVLTree<>();
+        cList = new AVLTree<>();
+        rentedList = new AVLTree<>();
+    }
+
     private LL<Video> generateCustomerList() {
         if (listType.equals("SLL")) {
             return new SLL<>();
@@ -257,13 +276,19 @@ public class VideoStore {
         return null;
     }
 
+
+
     public void generateList(String listType, int videos, int customers, int requests) {
         Queue<Integer> requestQueue = new LinkedList<>();
 
         if (listType.equals("SLL")) {
             createSLL();
-        } else {
+        } else if (listType.equals("DLL")) {
             createDLL();
+        } else if (listType.equals("BST")) {
+            createBST();
+        } else if (listType.equals("AVL")) {
+            createAVL();
         }
 
         for (int i = 1; i <= videos; i++) {
