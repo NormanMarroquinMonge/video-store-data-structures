@@ -134,11 +134,13 @@ public class VideoStore {
     }
 
     public void check(String title, Integer id) {
+    if(title == null && id == null) {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter video title: ");
         title = input.nextLine();
         System.out.println("Enter the video ID");
         id = input.nextInt();
+    }
         if(vList.contains(title, id)){
             System.out.println("TRUE");
         } else {
@@ -147,16 +149,18 @@ public class VideoStore {
     }
 
     public void checkOut(String title, Integer videoID, String name, Integer customerID) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter video title: ");
-        title = input.nextLine();
-        System.out.println("Enter the video ID");
-        videoID = input.nextInt();
-        input.nextLine();
-        System.out.println("Enter customer name: ");
-        name = input.nextLine();
-        System.out.println("Enter customer ID");
-        customerID = input.nextInt();
+        if (title == null || videoID == null || name == null || customerID == null) {
+            Scanner input = new Scanner(System.in);
+            System.out.println("Enter video title: ");
+            title = input.nextLine();
+            System.out.println("Enter the video ID");
+            videoID = input.nextInt();
+            input.nextLine();
+            System.out.println("Enter customer name: ");
+            name = input.nextLine();
+            System.out.println("Enter customer ID");
+            customerID = input.nextInt();
+        }
 
         Video v = vList.get(title, videoID);
         Customer c = cList.get(name, customerID);
@@ -173,16 +177,18 @@ public class VideoStore {
     }//End of Checkout method
 
     public void checkIn(String title, Integer videoID, String name, Integer customerID) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter video title: ");
-        title = input.nextLine();
-        System.out.println("Enter the video ID");
-        videoID = input.nextInt();
-        input.nextLine();
-        System.out.println("Enter customer name: ");
-        name = input.nextLine();
-        System.out.println("Enter customer ID");
-        customerID = input.nextInt();
+        if (title == null || videoID == null || name == null || customerID == null) {
+            Scanner input = new Scanner(System.in);
+            System.out.println("Enter video title: ");
+            title = input.nextLine();
+            System.out.println("Enter the video ID");
+            videoID = input.nextInt();
+            input.nextLine();
+            System.out.println("Enter customer name: ");
+            name = input.nextLine();
+            System.out.println("Enter customer ID");
+            customerID = input.nextInt();
+        }
 
         Customer c = cList.get(name, customerID);
         if(c == null){
@@ -295,7 +301,6 @@ public class VideoStore {
             Video v = new Video(generateVideoName());
             vList.add(v);
         }
-
         for (int i = 1; i <= customers; i++) {
             Customer c = new Customer(generateCustomerName(), generateCustomerList());
             cList.add(c);

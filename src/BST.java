@@ -207,23 +207,33 @@ public abstract class BST<E extends Comparable<E> & Identifiable> implements Tre
     }
 
     @Override
-    public E get(int id) {
-        return get(overallRoot, id);
+    public E get(int index) {
+        if (index < 0 || index >= size) {
+            return null;
+        }
+        int[] counter = {0};
+        return getByIndex(overallRoot, index, counter);
     }
 
-    private E get(Node<E> root, int id) {
+    private E getByIndex(Node<E> root, int index, int[] counter) {
         if (root == null) {
             return null;
-        } else {
-            int val = root.data.getID().compareTo(id);
-            if (val > 0) {
-                return get(root.left, id);
-            } else if (val < 0) {
-                return get(root.right, id);
-            } else {
-                return root.data;
-            }
         }
+
+        // Traverse left subtree
+        E result = getByIndex(root.left, index, counter);
+        if (result != null) {
+            return result;
+        }
+
+        // Check current node
+        if (counter[0] == index) {
+            return root.data;
+        }
+        counter[0]++;
+
+        // Traverse right subtree
+        return getByIndex(root.right, index, counter);
     }
 
     private boolean contains(Node<E> root, String name, int id) {
