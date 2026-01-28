@@ -1,0 +1,48 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' Interfaces
+interface Identifiable
+interface Comparable
+interface VideoCollection<E>
+interface LL<E>
+interface Tree<E>
+
+' Abstract class
+abstract class BST<E>
+
+' Concrete implementations
+class SLL<E>
+class DLL<E>
+class BSTTree<E>
+class AVLTree<E>
+
+' Domain entities
+class Video
+class Customer
+class VideoStore
+
+' Interface hierarchy
+LL --|> VideoCollection
+Tree --|> VideoCollection
+
+' Implementations
+BST ..|> Tree
+SLL ..|> LL
+DLL ..|> LL
+
+' Inheritance
+BSTTree --|> BST
+AVLTree --|> BST
+
+' Entity interfaces
+Video ..|> Comparable
+Video ..|> Identifiable
+Customer ..|> Comparable
+Customer ..|> Identifiable
+
+' Composition
+VideoStore --> VideoCollection : manages
+Customer --> VideoCollection : rentedVideos
+
+@enduml
