@@ -13,6 +13,7 @@ public class VideoStore {
     private int videos = 0, customers = 0, requests = 0;
 
     private final Scanner scanner = new Scanner(System.in);
+    private final Random random = new Random(42);
 
     public static void main(String[] args) {
         VideoStore vs = new VideoStore();
@@ -91,27 +92,25 @@ public class VideoStore {
     }
 
     public void setVideoInStore() {
-        Scanner input = new Scanner(System.in);
         System.out.println("Enter the videos title: ");
-        String title = input.nextLine();
+        String title = scanner.nextLine();
         Video v = new Video(title);
         vList.add(v);
     }
 
     public void setCustomer() {
-        Scanner input = new Scanner(System.in);
         System.out.println("Enter the customers name: ");
-        String name = input.nextLine();
+        String name = scanner.nextLine();
         Customer c = new Customer(name, generateCustomerList());
         cList.add(c);
     }
 
     public void deleteVideo() {
-        Scanner input = new Scanner(System.in);
         System.out.println("Enter video title: ");
-        String name = input.nextLine();
+        String name = scanner.nextLine();
         System.out.println("Enter video ID");
-        Integer id = input.nextInt();
+        Integer id = scanner.nextInt();
+        scanner.nextLine();
         boolean removed = vList.remove(name, id);
         if (removed){
             System.out.println("Successfully removed: " + name + " with ID: " + id);
@@ -120,11 +119,11 @@ public class VideoStore {
         }
     }
     public void deleteCustomer() {
-        Scanner input = new Scanner(System.in);
         System.out.println("Enter customer name: ");
-        String name = input.nextLine();
+        String name = scanner.nextLine();
         System.out.println("Enter customer ID");
-        Integer id = input.nextInt();
+        Integer id = scanner.nextInt();
+        scanner.nextLine();
         boolean removed = cList.remove(name, id);
         if (removed){
             System.out.println("Successfully removed: " + name + " with ID: " + id);
@@ -135,11 +134,11 @@ public class VideoStore {
 
     public void check(String title, Integer id) {
     if(title == null && id == null) {
-        Scanner input = new Scanner(System.in);
         System.out.println("Enter video title: ");
-        title = input.nextLine();
+        title = scanner.nextLine();
         System.out.println("Enter the video ID");
-        id = input.nextInt();
+        id = scanner.nextInt();
+        scanner.nextLine();
     }
         if(vList.contains(title, id)){
             System.out.println("TRUE");
@@ -150,16 +149,16 @@ public class VideoStore {
 
     public void checkOut(String title, Integer videoID, String name, Integer customerID) {
         if (title == null || videoID == null || name == null || customerID == null) {
-            Scanner input = new Scanner(System.in);
             System.out.println("Enter video title: ");
-            title = input.nextLine();
+            title = scanner.nextLine();
             System.out.println("Enter the video ID");
-            videoID = input.nextInt();
-            input.nextLine();
+            videoID = scanner.nextInt();
+            scanner.nextLine();
             System.out.println("Enter customer name: ");
-            name = input.nextLine();
+            name = scanner.nextLine();
             System.out.println("Enter customer ID");
-            customerID = input.nextInt();
+            customerID = scanner.nextInt();
+            scanner.nextLine();
         }
 
         Video v = vList.get(title, videoID);
@@ -178,16 +177,16 @@ public class VideoStore {
 
     public void checkIn(String title, Integer videoID, String name, Integer customerID) {
         if (title == null || videoID == null || name == null || customerID == null) {
-            Scanner input = new Scanner(System.in);
             System.out.println("Enter video title: ");
-            title = input.nextLine();
+            title = scanner.nextLine();
             System.out.println("Enter the video ID");
-            videoID = input.nextInt();
-            input.nextLine();
+            videoID = scanner.nextInt();
+            scanner.nextLine();
             System.out.println("Enter customer name: ");
-            name = input.nextLine();
+            name = scanner.nextLine();
             System.out.println("Enter customer ID");
-            customerID = input.nextInt();
+            customerID = scanner.nextInt();
+            scanner.nextLine();
         }
 
         Customer c = cList.get(name, customerID);
@@ -222,11 +221,11 @@ public class VideoStore {
     }
 
     public void printCustomersVideos() {
-        Scanner input = new Scanner(System.in);
         System.out.println("Enter customer name: ");
-        String name = input.nextLine();
+        String name = scanner.nextLine();
         System.out.println("Enter customer ID");
-        Integer customerID = input.nextInt();
+        Integer customerID = scanner.nextInt();
+        scanner.nextLine();
         if (!cList.contains(name, customerID)) {
             System.out.println("Customer not found");
         } else {
@@ -307,8 +306,7 @@ public class VideoStore {
         }
 
         for (int i = 1; i <= requests; i++) {
-            Random r = new Random();
-            int request = r.nextInt(7-5+1) + 5;
+            int request = random.nextInt(7-5+1) + 5;
             requestQueue.add(request);
         }
 
@@ -336,20 +334,17 @@ public class VideoStore {
     }//End of execute Requests
 
     private Video getRandomVideo() {
-        Random r = new Random();
-        int index = r.nextInt(vList.size());
+        int index = random.nextInt(vList.size());
         return vList.get(index);
     }
 
     private Video getRandomRentedVideo(){
-        Random r = new Random();
-        int index = r.nextInt(rentedList.size());
+        int index = random.nextInt(rentedList.size());
         return rentedList.get(index);
     }
 
     private Customer getRandomCustomer() {
-        Random r = new Random();
-        int index = r.nextInt(cList.size());
+        int index = random.nextInt(cList.size());
         return cList.get(index);
     }
 
@@ -357,18 +352,17 @@ public class VideoStore {
         int leftLimit = 97;
         int rightLimit = 122;
         int targetStringLength = 4;
-        Random random = new Random();
 
         return random.ints(leftLimit, rightLimit + 1)
                 .limit(targetStringLength)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
     }
+
     private String generateVideoName() {
         int leftLimit = 97;
         int rightLimit = 122;
         int targetStringLength = 4;
-        Random random = new Random();
 
         return random.ints(leftLimit, rightLimit + 1)
                 .limit(targetStringLength)
