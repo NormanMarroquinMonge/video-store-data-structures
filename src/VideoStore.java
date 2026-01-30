@@ -1,9 +1,6 @@
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class VideoStore {
     private VideoCollection<Video> vList = null;
@@ -299,12 +296,21 @@ public class VideoStore {
             createAVL();
         }
 
+        List<Video> videoList = new ArrayList<>();
         for (int i = 1; i <= videos; i++) {
-            Video v = new Video(generateVideoName());
+            videoList.add(new Video(generateVideoName()));
+        }
+        Collections.shuffle(videoList, random);
+        for (Video v : videoList) {
             vList.add(v);
         }
+
+        List<Customer> customerList = new ArrayList<>();
         for (int i = 1; i <= customers; i++) {
-            Customer c = new Customer(generateCustomerName(), generateCustomerList());
+            customerList.add(new Customer(generateCustomerName(), generateCustomerList()));
+        }
+        Collections.shuffle(customerList, random);
+        for (Customer c : customerList) {
             cList.add(c);
         }
 
