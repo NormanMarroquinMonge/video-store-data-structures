@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -30,7 +32,9 @@ public class VideoStore {
             long start = System.currentTimeMillis();
             generateList(listType, videos, customers, requests);
             long end = System.currentTimeMillis();
-            System.out.println(end - start);
+            long runtime = end - start;
+            System.out.println(runtime);
+            writeToCSV(listType, videos, customers, requests, runtime);
             System.exit(0);
         } else if (listType.equals("SLL")) {
             createSLL();
@@ -380,4 +384,18 @@ public class VideoStore {
         return choice;
     }
 
+    private void writeToCSV(String structure, int videos, int customers, int requests, long runtime) {
+        String filename = "benchmark_results.csv";
+        java.io.File file = new java.io.File(filename);
+        boolean fileExists = file.exists();
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
+            if (!fileExists) {
+                writer.println("DataStructure,Videos,Customers,Requests,RuntimeMS");
+            }
+            writer.printf("%s,%d,%d,%d,%d%n", structure, videos, customers, requests, runtime);
+        } catch (Exception e) {
+            System.err.println("Error writing to CSV: " + e.getMessage());
+        }
+    }
 }//End of videoStore class
