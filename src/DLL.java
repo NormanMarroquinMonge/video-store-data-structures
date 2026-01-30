@@ -76,9 +76,6 @@ public class DLL<E extends Comparable<E> & Identifiable> implements LL<E>{
     }
 
     private void removeNode(Node<E> node){
-        if (node == header || node == trailer) {
-            throw new IllegalArgumentException("List is empty");
-        }
         Node<E> predecessor = node.getPrev();
         Node<E> successor = node.getNext();
         predecessor.setNext(successor);
@@ -87,25 +84,26 @@ public class DLL<E extends Comparable<E> & Identifiable> implements LL<E>{
     }
 
     @Override
-    public boolean remove(String name, Integer id){
+    public E remove(String name, Integer id){
         if (!isEmpty()) {
             E headElement = header.getNext().getElement();
             if (headElement.getName().equals(name) && headElement.getID().equals(id)) {
                 removeFirst();
-                return true;
+                return headElement;
             } else {
               Node<E> curr = header.getNext().getNext();
               while(curr != trailer){
                   E element = curr.getElement();
                   if(element.getName().equals(name) && element.getID().equals(id)){
                       removeNode(curr);
-                      return true;
+                      return element;
                   }
                   curr = curr.getNext();
               }
+              return null;
             }
         }
-        return false;
+        return null;
     }
 
     @Override

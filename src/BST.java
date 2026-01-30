@@ -27,6 +27,7 @@ public abstract class BST<E extends Comparable<E> & Identifiable> implements Tre
 
     private Node<E> overallRoot;
     private int size;
+    private E deletedElement;
 
     public BST() {
         size = 0;
@@ -90,10 +91,9 @@ public abstract class BST<E extends Comparable<E> & Identifiable> implements Tre
     }
 
     @Override
-    public boolean remove(String name, Integer id) {
-        int previousSize = size;
+    public E remove(String name, Integer id) {
         overallRoot = remove(overallRoot, name, id);
-        return previousSize > size;
+        return deletedElement;
     }
 
     private Node<E> remove(Node<E> root, String name, Integer id) {
@@ -109,6 +109,7 @@ public abstract class BST<E extends Comparable<E> & Identifiable> implements Tre
             } else {
                 if (element.getName().equals(name)) {
                     size--;
+                    deletedElement = element;
                     if (root.left == null) {
                         return root.right;
                     } else if (root.right == null) {

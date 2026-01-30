@@ -115,9 +115,9 @@ public class VideoStore {
         System.out.println("Enter video ID");
         Integer id = scanner.nextInt();
         scanner.nextLine();
-        boolean removed = vList.remove(name, id);
-        if (removed){
-            System.out.println("Successfully removed: " + name + " with ID: " + id);
+        Video removed = vList.remove(name, id);
+        if (removed != null){
+            System.out.println("Successfully removed: " + removed.getName() + " with ID: " + removed.getID());
         } else {
             System.out.println("No video found with title: " + name + " and ID: " + id);
         }
@@ -128,9 +128,9 @@ public class VideoStore {
         System.out.println("Enter customer ID");
         Integer id = scanner.nextInt();
         scanner.nextLine();
-        boolean removed = cList.remove(name, id);
-        if (removed){
-            System.out.println("Successfully removed: " + name + " with ID: " + id);
+        Customer removed = cList.remove(name, id);
+        if (removed != null){
+            System.out.println("Successfully removed: " + removed.getName() + " with ID: " + removed.getID());
         } else {
             System.out.println("No Customer found with name: " + name + " and ID: " + id);
         }
@@ -165,7 +165,7 @@ public class VideoStore {
             scanner.nextLine();
         }
 
-        Video v = vList.get(title, videoID);
+        Video v = vList.remove(title, videoID);
         Customer c = cList.get(name, customerID);
 
         if(v == null){
@@ -173,7 +173,6 @@ public class VideoStore {
         } else if (c == null){
             System.out.println("Customer not found");
         } else {
-            vList.remove(v);
             c.getRentVideos().add(v);
             rentedList.add(v);
         }

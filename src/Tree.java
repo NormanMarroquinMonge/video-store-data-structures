@@ -1,7 +1,7 @@
 public interface Tree<E extends Identifiable> extends VideoCollection<E>{
     void add(E element);
     void remove(E element);
-    boolean remove(String name, Integer id);
+    E remove(String name, Integer id);
     int size();
     boolean contains(E element);
     boolean contains(String name, int id);
