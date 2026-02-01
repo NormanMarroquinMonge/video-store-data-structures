@@ -193,11 +193,10 @@ public class VideoStore {
         if(c == null){
             System.out.println("Customer not found");
         } else {
-            Video v = c.getRentVideos().get(title, videoID);
+            Video v = c.getRentVideos().remove(title, videoID);
             if(v == null){
                 System.out.println("Video not found");
             } else {
-                c.getRentVideos().remove(v);
                 rentedList.remove(v);
                 vList.add(v);
             }

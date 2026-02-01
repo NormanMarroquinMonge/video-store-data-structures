@@ -99,6 +99,9 @@ public class SLL<E extends Comparable<E> & Identifiable> implements LL<E> {
             if (headElement.getName().equals(name) && headElement.getID().equals(id)) {
                 head = head.getNext();
                 size--;
+                if (size == 0) {
+                    tail = null;
+                }
                 return headElement;
             } else {
                 Node<E> curr = head;
@@ -107,6 +110,9 @@ public class SLL<E extends Comparable<E> & Identifiable> implements LL<E> {
                     if (element.getName().equals(name) && element.getID().equals(id)) {
                         curr.setNext(curr.getNext().getNext());
                         size--;
+                        if (curr.getNext() == null) {
+                            tail = curr;
+                        }
                         return element;
                     }
                     curr = curr.getNext();
@@ -124,6 +130,9 @@ public class SLL<E extends Comparable<E> & Identifiable> implements LL<E> {
             if (headElement.equals(e)) {
                 head = head.getNext();
                 size--;
+                if (size == 0) {
+                    tail = null;
+                }
             } else {
                 Node<E> curr = head;
                 while (curr.getNext() != null) {
@@ -131,6 +140,9 @@ public class SLL<E extends Comparable<E> & Identifiable> implements LL<E> {
                     if (element.equals(e)) {
                         curr.setNext(curr.getNext().getNext());
                         size--;
+                        if (curr.getNext() == null) {
+                            tail = curr;
+                        }
                         return;
                     }
                     curr = curr.getNext();
