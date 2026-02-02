@@ -16,7 +16,7 @@ The **VideoStore** program is a functional management system that allows for the
 
 <h2 id="architecture">🏗️ Architecture & OOP Principles</h2>
 
-<p>The program utilizes a <b>cohesive yet polymorphic design</b> to implement core OOP principles, ensuring high maintainability and code reusability. By decoupling the data structure logic from the business operations, the system can swap between linear and hierarchical collections seamlessly[cite: 26, 30].</p>
+<p>The program utilizes a <b>cohesive yet polymorphic design</b> to implement core OOP principles, ensuring high maintainability and code reusability. By decoupling the data structure logic from the business operations, the system can swap between linear and hierarchical collections seamlessly.</p>
 
 <div align="center">
   <br>
