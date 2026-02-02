@@ -32,7 +32,7 @@ The benchmark scales through four tiers, culminating in a maximum load:
 * **Requests:** 20,000 (Operations 5, 6, and 7)
 
 <div align="center">
-  <img src="performance_scaling.png" width="800" alt="Performance Scaling Chart">
+  <img width="1103" height="655" alt="Image" src="https://github.com/user-attachments/assets/8b2f62c5-678e-468c-ab44-846e78c115bd" />
   <p><i>Figure 1: Comparison of total service runtime (Averaged over 3 runs)</i></p>
 </div>
 
