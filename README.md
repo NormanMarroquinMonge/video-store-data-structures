@@ -14,11 +14,39 @@
 ## 📌 Project Overview
 The **VideoStore** program is a functional management system that allows for the storage and retrieval of videos and customers across four distinct data structures. It serves as a laboratory to observe how different algorithmic complexities (O(n) vs O(log n)) handle real-world business logic under extreme stress.
 
-### 🏗️ Architecture & OOP Principles
-To avoid redundancy and implement core OOP principles, this project utilizes a cohesive yet polymorphic design:
-* **Interfaces:** `LL` and `Tree` to define structural behavior.
-* **Abstract Classes:** `BST` to house shared logic for tree implementations.
-* **Core Logic:** Implementation of **Singly Linked Lists (SLL)**, **Doubly Linked Lists (DLL)**, **Binary Search Trees (BST)**, and **AVL Trees**.
+<h2 id="architecture">🏗️ Architecture & OOP Principles</h2>
+
+<p>The program utilizes a <b>cohesive yet polymorphic design</b> to implement core OOP principles, ensuring high maintainability and code reusability. By decoupling the data structure logic from the business operations, the system can swap between linear and hierarchical collections seamlessly[cite: 26, 30].</p>
+
+<div align="center">
+  <br>
+  <img src="https://github.com/user-attachments/assets/72d7e0b7-131a-44ba-b18f-34ce360f18b1" width="650" alt="VideoStore UML Architecture">
+  <p><i><b>Figure 2:</b> UML Class Diagram of the VideoStore System </i></p>
+  <br>
+</div>
+
+<table width="100%">
+  <tr>
+    <td>
+      <b>🔹 Interfaces (<code>LL</code>, <code>Tree</code>)</b><br>
+      Defines the structural contract and behavior for all collection types.
+    </td>
+    <td>
+      <b>🔹 Abstract Classes (<code>BST</code>)</b><br>
+      Houses shared recursive logic while allowing for polymorphic method overriding.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>🔹 Core Logic Implementations</b><br>
+      Full support for Singly Linked Lists, Double Linked Lists, BST, and AVL Trees[cite: 4].
+    </td>
+    <td>
+      <b>🔹 Polymorphic Management</b><br>
+      The <code>VideoStore</code> manages <code>VideoCollection</code> objects, enabling high-level abstraction.
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -33,7 +61,7 @@ The benchmark scales through four tiers, culminating in a maximum load:
 
 <div align="center">
   <img width="1103" height="655" alt="Image" src="https://github.com/user-attachments/assets/8b2f62c5-678e-468c-ab44-846e78c115bd" />
-  <p><i>Figure 1: Comparison of total service runtime (Averaged over 3 runs)</i></p>
+  <p><i>Figure 2: Comparison of total service runtime (Averaged over 3 runs)</i></p>
 </div>
 
 ### 🔍 Key Findings
