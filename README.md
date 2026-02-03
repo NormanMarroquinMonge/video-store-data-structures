@@ -21,7 +21,7 @@ The **VideoStore** program is a functional management system that allows for the
 <div align="center">
   <br>
   <img src="https://github.com/user-attachments/assets/72d7e0b7-131a-44ba-b18f-34ce360f18b1" width="650" alt="VideoStore UML Architecture">
-  <p><i><b>Figure 2:</b> UML Class Diagram of the VideoStore System </i></p>
+  <p><i><b>Figure 1:</b> UML Class Diagram of the VideoStore System </i></p>
   <br>
 </div>
 
@@ -34,16 +34,6 @@ The **VideoStore** program is a functional management system that allows for the
     <td>
       <b>🔹 Abstract Classes (<code>BST</code>)</b><br>
       Houses shared recursive logic while allowing for polymorphic method overriding.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <b>🔹 Core Logic Implementations</b><br>
-      Full support for Singly Linked Lists, Double Linked Lists, BST, and AVL Trees[cite: 4].
-    </td>
-    <td>
-      <b>🔹 Polymorphic Management</b><br>
-      The <code>VideoStore</code> manages <code>VideoCollection</code> objects, enabling high-level abstraction.
     </td>
   </tr>
 </table>
@@ -87,4 +77,8 @@ The program is executed via the command line with the following syntax:
 **Manual Interaction:**
 ```bash
 java VideoStore [SLL|DLL|BST|AVL]
-
+```
+**Automated Feature:**
+```bash
+java VideoStore [SLL|DLL|BST|AVL] [numvideos] [numcustomers] [numrequests]
+```
